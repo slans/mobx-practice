@@ -1,48 +1,48 @@
-import { action, autorun, computed, makeObservable, observable } from 'mobx';
-import peopleStore from './people-store';
+import { action, autorun, computed, makeObservable, observable, configure, runInAction, flow } from 'mobx';
+
+configure({ enforceActions: 'observed' });
 
 class TodoStore {
-	todos = [
-		{
-			task: 'First task',
-			completed: true,
-			assignee: peopleStore[0].name,
-		},
-	];
-	pendingRequest = 0;
-
 	constructor() {
 		makeObservable(this, {
 			todos: observable,
-			pendingRequest: observable,
-			completedTodosCount: computed,
+			error: observable,
 			totalTodosCount: computed,
-			report: computed,
+			unfinishedTodosCount: computed,
+			toggleTodo: action,
 			addTodo: action,
-			renameTask: action,
-			toggleTaskCompleted: action,
-			makePendingRequest: action,
+			getTodos: flow,
 		});
 		autorun(() => console.log(this.report));
 	}
 
-	makePendingRequest() {
-		this.pendingRequest = 1;
-		setTimeout(() => (this.pendingRequest = 0), 3000);
+	todos = [];
+	error = '';
+
+	*getTodos() {
+		try {
+			const response = yield fetch('https://jsonplaceholder.typicode.com/todos/?userId=1');
+			const result = yield response.json();
+			this.todos = result;
+		} catch (error) {
+			this.error = 'Some error occured';
+		}
 	}
 
-	renameTask(updatedTask, id) {
-		const todo = this.todos.find((todo, idx) => idx === id);
-		todo.task = updatedTask;
-	}
-
-	toggleTaskCompleted(id) {
-		const todo = this.todos.find((todo, idx) => idx === id);
+	toggleTodo(id) {
+		const todo = this.todos.find((todo) => (todo.id = id));
 		todo.completed = !todo.completed;
 	}
 
-	get completedTodosCount() {
-		return this.todos.filter((todo) => todo.completed).length;
+	addTodo(task) {
+		this.todos.push({
+			task,
+			finished: false,
+		});
+	}
+
+	get unfinishedTodosCount() {
+		return this.todos.filter((todo) => !todo.completed).length;
 	}
 
 	get totalTodosCount() {
@@ -50,19 +50,7 @@ class TodoStore {
 	}
 
 	get report() {
-		const nextTodo = this.todos.find((todo) => !todo.completed);
-		return `Next todo: ${nextTodo ? nextTodo.task : '<none>'}. Progress: ${this.completedTodosCount}/${
-			this.totalTodosCount
-		}`;
-	}
-
-	addTodo(task) {
-		this.makePendingRequest();
-		this.todos.push({
-			task,
-			completed: false,
-			assignee: null,
-		});
+		return `Todos: ${this.unfinishedTodosCount}/${this.totalTodosCount}`;
 	}
 }
 

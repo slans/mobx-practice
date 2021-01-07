@@ -1,3 +1,4 @@
+import { action } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { Button } from 'reactstrap';
@@ -13,7 +14,6 @@ const AddTodo = ({ todoStore }) => {
 			<Button color='primary' className='mr-3' onClick={handleCreateTodo}>
 				New Todo
 			</Button>
-			<span>(double-click a todo to edit)</span>
 		</div>
 	);
 };
