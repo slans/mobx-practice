@@ -6,15 +6,15 @@ import './index.scss';
 
 function Filters({ handleChooseFilter, activeFilter }) {
 	const filters = [
-		{ text: 'Вчера', label: 'yesterday' },
-		{ text: 'Сегодня', label: 'today' },
-		{ text: 'Неделя', label: 'week' },
-		{ text: 'Месяц', label: 'month' },
+		{ text: 'Вч', label: 'yesterday' },
+		{ text: 'Сег', label: 'today' },
+		{ text: 'Нед', label: 'week' },
+		{ text: 'Мес', label: 'month' },
 	];
 
 	return (
 		<div className='filters d-flex'>
-			<span className='label'>Выбор:</span>
+			<span className='label'>Срок:</span>
 			<List type='unstyled' className='filters-list ml-2'>
 				{filters.map((filter) => {
 					const isActive = activeFilter === filter.label;

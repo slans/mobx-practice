@@ -3,15 +3,15 @@ import dayjs from 'dayjs';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
 dayjs.extend(weekOfYear);
 
-const Slider = ({ activeFilter, dateStart, handleSliderDateChange }) => {
+const Slider = ({ activeFilter, dateFrom, dateTo, handleSliderDateChange }) => {
 	const renderDateInfo = () => {
 		let result = '';
 		switch (activeFilter) {
 			case 'week':
-				result = `неделя ${dateStart.week()}`;
+				result = `неделя, ${dateFrom.date()}-${dateTo.date()} ${dateTo.format('MMMM')}`;
 				break;
 			case 'month':
-				result = `${dateStart.format('MMMM')}`;
+				result = `${dateFrom.format('MMMM')}, ${dateFrom.year()}`;
 				break;
 			default:
 				break;
@@ -24,11 +24,11 @@ const Slider = ({ activeFilter, dateStart, handleSliderDateChange }) => {
 		return (
 			<div className='slider d-flex justify-content-between'>
 				<span className='slider-btn prev' style={{ cursor: 'pointer' }} onClick={handleSliderDateChange}>
-					Предыдущая
+					Предыдущий
 				</span>
 				<span className='date-info'>{renderDateInfo()}</span>
 				<span className='slider-btn next' style={{ cursor: 'pointer' }} onClick={handleSliderDateChange}>
-					Следующая
+					Следующий
 				</span>
 			</div>
 		);
