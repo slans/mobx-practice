@@ -1,16 +1,19 @@
-import React from 'react';
-import { Container, Spinner } from 'reactstrap';
-import AddTodo from '../add-todo/add-todo';
-import TodoList from '../todo-list/todo-list';
-import './app.scss';
+import React, { Component } from 'react';
+import { Col, Container } from 'reactstrap';
+import DateFilter from '../date-filter/date-filter';
+// import Test from '../test/test';
 
-const App = () => {
-	return (
-		<Container>
-			<TodoList />
-			<AddTodo />
-		</Container>
-	);
-};
+class App extends Component {
+	render() {
+		return (
+			<Container>
+				<Col sm='5'>
+					<DateFilter />
+					{/* <Test /> */}
+				</Col>
+			</Container>
+		);
+	}
+}
 
 export default App;
