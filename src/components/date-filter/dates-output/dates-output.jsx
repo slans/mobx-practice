@@ -3,29 +3,28 @@ import React from 'react';
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import DatePicker from 'react-modern-calendar-datepicker';
 
-function DatesOutput({ activeFilter, dateFrom, dateTo, handleInputChange }) {
-	const isdateToNeed = activeFilter === 'week' || activeFilter === 'month';
-	const from = {
-		year: dateFrom.year(),
-		month: dateFrom.month() + 1,
-		day: dateFrom.date(),
-	};
-	const to = {
-		year: dateTo.year(),
-		month: dateTo.month() + 1,
-		day: dateTo.date(),
-	};
+function DatesOutput({ activeFilter, dateFrom, dateTo, handleCalendarChange }) {
+	// const isdateToNeed = activeFilter === 'week' || activeFilter === 'month';
 
-	const handleChange = (info) => {
-		console.log('info', info);
+	const dateRange = {
+		from: {
+			year: dateFrom.year(),
+			month: dateFrom.month(),
+			day: dateFrom.date(),
+		},
+		to: {
+			year: dateTo.year(),
+			month: dateTo.month(),
+			day: dateTo.date(),
+		},
 	};
 
 	return (
 		<div className='dates-output mt-2'>
 			<div className='dates-range d-flex justify-content-center'>
 				<DatePicker
-					value={{ from, to }}
-					onChange={handleChange}
+					value={dateRange}
+					onChange={handleCalendarChange}
 					inputPlaceholder='Select a day range'
 					shouldHighlightWeekends
 				/>

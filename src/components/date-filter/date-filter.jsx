@@ -6,7 +6,6 @@ import Slider from './slider/slider';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import 'dayjs/locale/ru';
 dayjs.locale('ru');
-
 dayjs.extend(customParseFormat);
 
 class DateFilter extends Component {
@@ -28,13 +27,25 @@ class DateFilter extends Component {
 		});
 	};
 
-	handleInputChange = (values) => {
-		const { value } = values;
-		console.log('value', value);
-		this.setState({
-			dateFrom: dayjs(value, 'DDMMYYYY'),
-		});
+	handleCalendarChange = (values) => {
+		const { from, to } = values;
+		console.log('values', values);
+		const dateFrom = `${from.day}-${from.month + 1}-${from.year}`;
+		// console.log('values', dateFrom, dayjs(dateFrom, 'D-M-YYYY'));
+		to &&
+			this.setState({
+				dateFrom,
+				dateTo: dayjs(`${to.day}-${to.month + 1}-${to.year}`, 'D-M-YYYY'),
+			});
 	};
+
+	// handleInputChange = (values) => {
+	// 	const { value } = values;
+	// 	console.log('value', value);
+	// 	this.setState({
+	// 		dateFrom: dayjs(value, 'DDMMYYYY'),
+	// 	});
+	// };
 
 	// handleInputChange = (e) => {
 	// 	const { range_label } = e.target.dataset;
@@ -113,7 +124,7 @@ class DateFilter extends Component {
 					activeFilter={activeFilter}
 					dateFrom={dateFrom}
 					dateTo={dateTo}
-					handleInputChange={this.handleInputChange}
+					handleCalendarChange={this.handleCalendarChange}
 				/>
 			</>
 		);
