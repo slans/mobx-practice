@@ -3,20 +3,30 @@ import React from 'react';
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import DatePicker from 'react-modern-calendar-datepicker';
 
-function DatesOutput({ activeFilter, dateFrom, dateTo, handleCalendarChange }) {
+const DatesOutput = ({ activeFilter, dateFrom, dateTo, handleCalendarChange }) => {
 	// const isdateToNeed = activeFilter === 'week' || activeFilter === 'month';
 
-	const dateRange = {
+	console.log('dateFrom.month()', dateFrom.month());
+
+	let dateRange = {
 		from: {
 			year: dateFrom.year(),
-			month: dateFrom.month(),
+			month: dateFrom.month() + 1,
 			day: dateFrom.date(),
 		},
-		to: {
-			year: dateTo.year(),
-			month: dateTo.month(),
-			day: dateTo.date(),
-		},
+		to: dateTo
+			? {
+					year: dateTo.year(),
+					month: dateTo.month() + 1,
+					day: dateTo.date(),
+			  }
+			: dateTo,
+	};
+
+	const formatInputValue = () => {
+		const { from, to } = dateRange;
+		const toResult = to ? `${'-'} ${to.day}.${to.month}.${to.year}` : '';
+		return `${from.day}.${from.month}.${from.year} ${toResult}`;
 	};
 
 	return (
@@ -26,6 +36,7 @@ function DatesOutput({ activeFilter, dateFrom, dateTo, handleCalendarChange }) {
 					value={dateRange}
 					onChange={handleCalendarChange}
 					inputPlaceholder='Select a day range'
+					formatInputText={formatInputValue}
 					shouldHighlightWeekends
 				/>
 
@@ -54,6 +65,6 @@ function DatesOutput({ activeFilter, dateFrom, dateTo, handleCalendarChange }) {
 			</div>
 		</div>
 	);
-}
+};
 
 export default DatesOutput;

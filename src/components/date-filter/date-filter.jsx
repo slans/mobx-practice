@@ -12,7 +12,7 @@ class DateFilter extends Component {
 	state = {
 		activeFilter: 'today',
 		dateFrom: dayjs(),
-		dateTo: dayjs(),
+		dateTo: null,
 	};
 
 	handleChooseFilter = (e) => {
@@ -29,15 +29,16 @@ class DateFilter extends Component {
 
 	handleCalendarChange = (values) => {
 		const { from, to } = values;
-		console.log('values', values);
-		const dateFrom = `${from.day}-${from.month + 1}-${from.year}`;
-		// console.log('values', dateFrom, dayjs(dateFrom, 'D-M-YYYY'));
-		to &&
-			this.setState({
-				dateFrom,
-				dateTo: dayjs(`${to.day}-${to.month + 1}-${to.year}`, 'D-M-YYYY'),
-			});
+		console.log('from', from);
+		this.setState({
+			dateFrom: this.createDayjsForPicker(from),
+			dateTo: to ? this.createDayjsForPicker(to) : null,
+		});
 	};
+
+	createDayjsForPicker(date) {
+		return dayjs(`${date.day}-${date.month}-${date.year}`, 'D-M-YYYY');
+	}
 
 	// handleInputChange = (values) => {
 	// 	const { value } = values;
@@ -87,13 +88,13 @@ class DateFilter extends Component {
 				const yesterday = dayjs().subtract(1, 'd');
 				return {
 					dateFrom: yesterday,
-					dateTo: yesterday,
+					dateTo: null,
 				};
 			case 'today':
 				const today = dayjs();
 				return {
 					dateFrom: today,
-					dateTo: today,
+					dateTo: null,
 				};
 			case 'week':
 				return {
