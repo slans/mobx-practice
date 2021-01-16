@@ -12,7 +12,7 @@ class DateFilter extends Component {
 	state = {
 		activeFilter: 'today',
 		dateFrom: dayjs(),
-		dateTo: null,
+		dateTo: dayjs(),
 	};
 
 	handleChooseFilter = (e) => {
@@ -29,10 +29,13 @@ class DateFilter extends Component {
 
 	handleCalendarChange = (values) => {
 		const { from, to } = values;
-		console.log('from', from);
+		const dateFrom = this.createDayjsForPicker(from),
+			dateTo = to ? this.createDayjsForPicker(to) : null;
+
 		this.setState({
-			dateFrom: this.createDayjsForPicker(from),
-			dateTo: to ? this.createDayjsForPicker(to) : null,
+			activeFilter: 'other',
+			dateFrom,
+			dateTo,
 		});
 	};
 
@@ -88,13 +91,13 @@ class DateFilter extends Component {
 				const yesterday = dayjs().subtract(1, 'd');
 				return {
 					dateFrom: yesterday,
-					dateTo: null,
+					dateTo: yesterday,
 				};
 			case 'today':
 				const today = dayjs();
 				return {
 					dateFrom: today,
-					dateTo: null,
+					dateTo: today,
 				};
 			case 'week':
 				return {

@@ -20,13 +20,19 @@ const DatesOutput = ({ activeFilter, dateFrom, dateTo, handleCalendarChange }) =
 					month: dateTo.month() + 1,
 					day: dateTo.date(),
 			  }
-			: dateTo,
+			: null,
 	};
 
 	const formatInputValue = () => {
 		const { from, to } = dateRange;
-		const toResult = to ? `${'-'} ${to.day}.${to.month}.${to.year}` : '';
-		return `${from.day}.${from.month}.${from.year} ${toResult}`;
+		const fromResult = `${from.day}.${from.month}.${from.year}`,
+			toResult = to ? `${to.day}.${to.month}.${to.year}` : '';
+
+		if (JSON.stringify(from) === JSON.stringify(to) || !to) {
+			return fromResult;
+		} else if (to) {
+			return `${fromResult} - ${toResult}`;
+		}
 	};
 
 	return (
