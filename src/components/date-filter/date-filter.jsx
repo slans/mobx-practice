@@ -11,8 +11,8 @@ dayjs.extend(customParseFormat);
 class DateFilter extends Component {
 	state = {
 		activeFilter: 'today',
-		dateFrom: dayjs(),
-		dateTo: dayjs(),
+		dateFrom: dayjs().startOf('d'),
+		dateTo: dayjs().endOf('d'),
 	};
 
 	handleChooseFilter = (e) => {
@@ -43,45 +43,40 @@ class DateFilter extends Component {
 		return dayjs(`${date.day}-${date.month}-${date.year}`, 'D-M-YYYY');
 	}
 
-	// handleInputChange = (values) => {
-	// 	const { value } = values;
-	// 	console.log('value', value);
-	// 	this.setState({
-	// 		dateFrom: dayjs(value, 'DDMMYYYY'),
-	// 	});
-	// };
-
-	// handleInputChange = (e) => {
-	// 	const { range_label } = e.target.dataset;
-	// 	this.setState({
-	// 		[range_label]: dayjs(e.target.value, 'DD.MM.YYYY'),
-	// 	});
-	// };
-
 	handleSliderDateChange = (e) => {
 		const { activeFilter, dateFrom, dateTo } = this.state;
 		const isPrevClicked = e.target.classList.contains('prev');
 
-		if (activeFilter === 'week') {
-			isPrevClicked
-				? this.setState({
-						dateFrom: dateFrom.subtract(1, 'week'),
-						dateTo: dateTo.subtract(1, 'week'),
-				  })
-				: this.setState({
-						dateFrom: dateFrom.add(1, 'week'),
-						dateTo: dateTo.add(1, 'week'),
-				  });
-		} else if (activeFilter === 'month') {
-			isPrevClicked
-				? this.setState({
-						dateFrom: dateFrom.subtract(1, 'month'),
-						dateTo: dateTo.subtract(1, 'month'),
-				  })
-				: this.setState({
-						dateFrom: dateFrom.add(1, 'month'),
-						dateTo: dateTo.add(1, 'month'),
-				  });
+		const subtractPeriod = (period) => {
+			this.setState({
+				dateFrom: dateFrom.subtract(1, period).startOf(period),
+				dateTo: dateTo.subtract(1, period).endOf(period),
+			});
+		};
+
+		const addPeriod = (period) => {
+			this.setState({
+				dateFrom: dateFrom.add(1, period).startOf(period),
+				dateTo: dateTo.add(1, period).endOf(period),
+			});
+		};
+
+		switch (activeFilter) {
+			case 'yesterday':
+				isPrevClicked ? subtractPeriod('d') : addPeriod('d');
+				return;
+			case 'today':
+				isPrevClicked ? subtractPeriod('d') : addPeriod('d');
+				return;
+			case 'week':
+				isPrevClicked ? subtractPeriod('w') : addPeriod('w');
+				return;
+			case 'month':
+				isPrevClicked ? subtractPeriod('M') : addPeriod('M');
+				return;
+
+			default:
+				break;
 		}
 	};
 

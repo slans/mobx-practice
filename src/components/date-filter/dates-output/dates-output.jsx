@@ -6,8 +6,6 @@ import DatePicker from 'react-modern-calendar-datepicker';
 const DatesOutput = ({ activeFilter, dateFrom, dateTo, handleCalendarChange }) => {
 	// const isdateToNeed = activeFilter === 'week' || activeFilter === 'month';
 
-	console.log('dateFrom.month()', dateFrom.month());
-
 	let dateRange = {
 		from: {
 			year: dateFrom.year(),
@@ -24,13 +22,13 @@ const DatesOutput = ({ activeFilter, dateFrom, dateTo, handleCalendarChange }) =
 	};
 
 	const formatInputValue = () => {
-		const { from, to } = dateRange;
-		const fromResult = `${from.day}.${from.month}.${from.year}`,
-			toResult = to ? `${to.day}.${to.month}.${to.year}` : '';
+		// const { from, to } = dateRange;
+		const fromResult = `${dateFrom.date()}.${dateFrom.month() + 1}.${dateFrom.year()}`,
+			toResult = dateTo ? `${dateTo.date()}.${dateTo.month() + 1}.${dateTo.year()}` : '';
 
-		if (JSON.stringify(from) === JSON.stringify(to) || !to) {
+		if (dateFrom.isSame(dateTo, 'D') || !dateTo) {
 			return fromResult;
-		} else if (to) {
+		} else {
 			return `${fromResult} - ${toResult}`;
 		}
 	};
@@ -45,29 +43,6 @@ const DatesOutput = ({ activeFilter, dateFrom, dateTo, handleCalendarChange }) =
 					formatInputText={formatInputValue}
 					shouldHighlightWeekends
 				/>
-
-				{/* <span>{dateFrom.format('DD.MM.YYYY')}</span>
-				{isdateToNeed && <span className='ml-3'>{dateTo.format('DD.MM.YYYY')}</span>} */}
-				{/* <NumberFormat
-					format='##.##.####'
-					value={dateFrom.format('DDMMYYYY')}
-				/> */}
-				{/* <input
-					className='date-input'
-					data-range_label='dateFrom'
-					type='text'
-					value={dateFrom.format('DD.MM.YYYY')}
-					onChange={handleInputChange}
-				/> */}
-				{/* {isdateToNeed && (
-					<input
-						className='date-input ml-2'
-						data-range_label='dateTo'
-						type='text'
-						value={dateTo.format('DD.MM.YYYY')}
-						onChange={handleInputChange}
-					/>
-				)} */}
 			</div>
 		</div>
 	);
