@@ -1,9 +1,8 @@
 import React from 'react';
-// import NumberFormat from 'react-number-format';
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import DatePicker from 'react-modern-calendar-datepicker';
 
-const DatesOutput = ({ activeFilter, dateFrom, dateTo, handleCalendarChange }) => {
+const DatesInput = ({ activeFilter, dateFrom, dateTo, handleCalendarChange }) => {
 	// const isdateToNeed = activeFilter === 'week' || activeFilter === 'month';
 
 	let dateRange = {
@@ -48,4 +47,4 @@ const DatesOutput = ({ activeFilter, dateFrom, dateTo, handleCalendarChange }) =
 	);
 };
 
-export default DatesOutput;
+export default DatesInput;

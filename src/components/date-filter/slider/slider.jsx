@@ -1,9 +1,10 @@
+import './index.scss';
 import React from 'react';
 import dayjs from 'dayjs';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
 dayjs.extend(weekOfYear);
 
-const Slider = ({ activeFilter, dateFrom, dateTo, handleSliderDateChange }) => {
+const Slider = ({ activeFilter, dateFrom, dateTo, handleSliderDateChange, handleToggleDatesInput }) => {
 	// const isWeekOrMonth = activeFilter === 'week' || activeFilter === 'month';
 
 	const renderDateInfo = () => {
@@ -30,11 +31,13 @@ const Slider = ({ activeFilter, dateFrom, dateTo, handleSliderDateChange }) => {
 
 	return (
 		<div className='slider d-flex justify-content-between'>
-			<span className='slider-btn prev' style={{ cursor: 'pointer' }} onClick={handleSliderDateChange}>
+			<span className='slider-btn prev' onClick={handleSliderDateChange}>
 				Предыдущий
 			</span>
-			<span className='date-info'>{renderDateInfo()}</span>
-			<span className='slider-btn next' style={{ cursor: 'pointer' }} onClick={handleSliderDateChange}>
+			<span className='date-info' onClick={handleToggleDatesInput}>
+				{renderDateInfo()}
+			</span>
+			<span className='slider-btn next' onClick={handleSliderDateChange}>
 				Следующий
 			</span>
 		</div>

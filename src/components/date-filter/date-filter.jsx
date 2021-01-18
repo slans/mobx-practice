@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Filters from './filters/filters';
 import dayjs from 'dayjs';
-import DatesOutput from './dates-output/dates-output';
+import DatesInput from './dates-input/dates-input';
 import Slider from './slider/slider';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import 'dayjs/locale/ru';
@@ -13,6 +13,13 @@ class DateFilter extends Component {
 		activeFilter: 'today',
 		dateFrom: dayjs().startOf('d'),
 		dateTo: dayjs().endOf('d'),
+		isDatesInputVisible: false,
+	};
+
+	handleToggleDatesInput = () => {
+		this.setState(({ isDatesInputVisible }) => ({
+			isDatesInputVisible: !isDatesInputVisible,
+		}));
 	};
 
 	handleChooseFilter = (e) => {
@@ -24,6 +31,7 @@ class DateFilter extends Component {
 		this.setState({
 			activeFilter: label,
 			...dateRange,
+			isDatesInputVisible: false,
 		});
 	};
 
@@ -109,22 +117,27 @@ class DateFilter extends Component {
 	}
 
 	render() {
-		const { activeFilter, dateFrom, dateTo } = this.state;
+		const { activeFilter, dateFrom, dateTo, isDatesInputVisible } = this.state;
 		return (
 			<>
 				<Filters activeFilter={activeFilter} handleChooseFilter={this.handleChooseFilter} />
-				<Slider
-					activeFilter={activeFilter}
-					dateFrom={dateFrom}
-					dateTo={dateTo}
-					handleSliderDateChange={this.handleSliderDateChange}
-				/>
-				<DatesOutput
-					activeFilter={activeFilter}
-					dateFrom={dateFrom}
-					dateTo={dateTo}
-					handleCalendarChange={this.handleCalendarChange}
-				/>
+				{!isDatesInputVisible && (
+					<Slider
+						activeFilter={activeFilter}
+						dateFrom={dateFrom}
+						dateTo={dateTo}
+						handleSliderDateChange={this.handleSliderDateChange}
+						handleToggleDatesInput={this.handleToggleDatesInput}
+					/>
+				)}
+				{isDatesInputVisible && (
+					<DatesInput
+						activeFilter={activeFilter}
+						dateFrom={dateFrom}
+						dateTo={dateTo}
+						handleCalendarChange={this.handleCalendarChange}
+					/>
+				)}
 			</>
 		);
 	}
