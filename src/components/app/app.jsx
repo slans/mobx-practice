@@ -7,7 +7,7 @@ class App extends Component {
 	render() {
 		return (
 			<Container>
-				<Col sm='5'>
+				<Col sm='4'>
 					<DateFilter />
 					{/* <Test /> */}
 				</Col>

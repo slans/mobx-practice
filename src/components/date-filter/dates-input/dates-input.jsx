@@ -1,16 +1,19 @@
 import React from 'react';
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import DatePicker from 'react-modern-calendar-datepicker';
+import dateRangeLocaleRu from '../../../utils/date-range-locale-ru';
 
 const DatesInput = ({ activeFilter, dateFrom, dateTo, handleCalendarChange }) => {
 	// const isdateToNeed = activeFilter === 'week' || activeFilter === 'month';
 
 	let dateRange = {
-		from: {
-			year: dateFrom.year(),
-			month: dateFrom.month() + 1,
-			day: dateFrom.date(),
-		},
+		from: dateFrom
+			? {
+					year: dateFrom.year(),
+					month: dateFrom.month() + 1,
+					day: dateFrom.date(),
+			  }
+			: null,
 		to: dateTo
 			? {
 					year: dateTo.year(),
@@ -21,9 +24,10 @@ const DatesInput = ({ activeFilter, dateFrom, dateTo, handleCalendarChange }) =>
 	};
 
 	const formatInputValue = () => {
-		// const { from, to } = dateRange;
-		const fromResult = `${dateFrom.date()}.${dateFrom.month() + 1}.${dateFrom.year()}`,
-			toResult = dateTo ? `${dateTo.date()}.${dateTo.month() + 1}.${dateTo.year()}` : '';
+		const fromResult = dateFrom ? `${dateFrom.format('DD.MM.YYYY')}` : '',
+			toResult = dateTo ? `${dateTo.format('DD.MM.YYYY')}` : '';
+
+		if (!fromResult) return '';
 
 		if (dateFrom.isSame(dateTo, 'D') || !dateTo) {
 			return fromResult;
@@ -38,9 +42,10 @@ const DatesInput = ({ activeFilter, dateFrom, dateTo, handleCalendarChange }) =>
 				<DatePicker
 					value={dateRange}
 					onChange={handleCalendarChange}
-					inputPlaceholder='Select a day range'
+					inputPlaceholder='Выберите дату'
 					formatInputText={formatInputValue}
 					shouldHighlightWeekends
+					locale={dateRangeLocaleRu}
 				/>
 			</div>
 		</div>

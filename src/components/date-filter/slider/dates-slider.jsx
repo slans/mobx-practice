@@ -2,9 +2,10 @@ import './index.scss';
 import React from 'react';
 import dayjs from 'dayjs';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
+import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 dayjs.extend(weekOfYear);
 
-const Slider = ({ activeFilter, dateFrom, dateTo, handleSliderDateChange, handleToggleDatesInput }) => {
+const DatesSlider = ({ activeFilter, dateFrom, dateTo, handleSliderDateChange, handleToggleDatesInput }) => {
 	// const isWeekOrMonth = activeFilter === 'week' || activeFilter === 'month';
 
 	const renderDateInfo = () => {
@@ -30,18 +31,18 @@ const Slider = ({ activeFilter, dateFrom, dateTo, handleSliderDateChange, handle
 	};
 
 	return (
-		<div className='slider d-flex justify-content-between'>
+		<div className='slider mt-2'>
 			<span className='slider-btn prev' onClick={handleSliderDateChange}>
-				Предыдущий
+				<BiChevronLeft size='24' />
 			</span>
 			<span className='date-info' onClick={handleToggleDatesInput}>
 				{renderDateInfo()}
 			</span>
 			<span className='slider-btn next' onClick={handleSliderDateChange}>
-				Следующий
+				<BiChevronRight size='24' />
 			</span>
 		</div>
 	);
 };
 
-export default Slider;
+export default DatesSlider;

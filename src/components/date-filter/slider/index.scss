@@ -2,9 +2,5 @@
 	.date-info,
 	.slider-btn {
 		cursor: pointer;
-		transition: color 0.3s ease;
-		&:hover {
-			color: blue;
-		}
 	}
 }

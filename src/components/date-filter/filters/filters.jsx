@@ -15,7 +15,7 @@ function Filters({ handleChooseFilter, activeFilter }) {
 	return (
 		<div className='filters d-flex'>
 			<span className='label'>Срок:</span>
-			<List type='unstyled' className='filters-list ml-2'>
+			<List type='unstyled' className='filters-list m-0 ml-2'>
 				{filters.map((filter) => {
 					const isActive = activeFilter === filter.label;
 					return (

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Filters from './filters/filters';
 import dayjs from 'dayjs';
 import DatesInput from './dates-input/dates-input';
-import Slider from './slider/slider';
+import Slider from './slider/dates-slider';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import 'dayjs/locale/ru';
 dayjs.locale('ru');
@@ -10,10 +10,10 @@ dayjs.extend(customParseFormat);
 
 class DateFilter extends Component {
 	state = {
-		activeFilter: 'today',
-		dateFrom: dayjs().startOf('d'),
-		dateTo: dayjs().endOf('d'),
-		isDatesInputVisible: false,
+		activeFilter: '',
+		dateFrom: null,
+		dateTo: null,
+		isDatesInputVisible: true,
 	};
 
 	handleToggleDatesInput = () => {
