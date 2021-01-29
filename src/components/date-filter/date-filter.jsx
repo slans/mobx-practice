@@ -23,9 +23,9 @@ class DateFilter extends Component {
 	};
 
 	handleChooseFilter = (e) => {
-		if (e.target.classList.contains('active')) {
-			return false;
-		}
+		// if (e.target.classList.contains('active')) {
+		// 	return false;
+		// }
 		const { label } = e.target.dataset;
 		const dateRange = this.getDateRangeOnFilterChoice(label);
 		this.setState({
@@ -53,7 +53,7 @@ class DateFilter extends Component {
 
 	handleSliderDateChange = (e) => {
 		const { activeFilter, dateFrom, dateTo } = this.state;
-		const isPrevClicked = e.target.classList.contains('prev');
+		const isPrevClicked = e.currentTarget.classList.contains('prev');
 
 		const subtractPeriod = (period) => {
 			this.setState({
@@ -120,6 +120,7 @@ class DateFilter extends Component {
 		const { activeFilter, dateFrom, dateTo, isDatesInputVisible } = this.state;
 		return (
 			<>
+				{/* <i className='bx-calendar'></i> */}
 				<Filters activeFilter={activeFilter} handleChooseFilter={this.handleChooseFilter} />
 				{!isDatesInputVisible && (
 					<Slider

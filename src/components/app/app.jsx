@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Col, Container } from 'reactstrap';
 import DateFilter from '../date-filter/date-filter';
+// import '../../assets/scss/icons/_boxicons.scss';
 // import Test from '../test/test';
 
 class App extends Component {

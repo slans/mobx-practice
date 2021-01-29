@@ -2,7 +2,7 @@ import React from 'react';
 import { List } from 'reactstrap';
 import FilterItem from './filter-item/filter-item';
 import { nanoid } from 'nanoid';
-import './index.scss';
+import '../index.scss';
 
 function Filters({ handleChooseFilter, activeFilter }) {
 	const filters = [
@@ -14,7 +14,7 @@ function Filters({ handleChooseFilter, activeFilter }) {
 
 	return (
 		<div className='filters d-flex'>
-			<span className='label'>Срок:</span>
+			<span className='label'>Период:</span>
 			<List type='unstyled' className='filters-list m-0 ml-2'>
 				{filters.map((filter) => {
 					const isActive = activeFilter === filter.label;

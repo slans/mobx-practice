@@ -1,0 +1,30 @@
+// @import '../../assets/scss/icons/boxicons';
+
+%link-shared {
+	color: #186999;
+	cursor: pointer;
+	&:hover,
+	&.active {
+		color: #f88001;
+	}
+}
+.slider {
+	.date-info,
+	.slider-btn {
+		@extend %link-shared;
+	}
+}
+.filters-list {
+	li {
+		transition: color 0.3s ease;
+		@extend %link-shared;
+	}
+}
+.dates-input {
+	.DatePicker {
+		width: 220px;
+		.form-control[readonly] {
+			background-color: #fff;
+		}
+	}
+}

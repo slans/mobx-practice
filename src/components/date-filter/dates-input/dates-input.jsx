@@ -2,6 +2,8 @@ import React from 'react';
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import DatePicker from 'react-modern-calendar-datepicker';
 import dateRangeLocaleRu from '../../../utils/date-range-locale-ru';
+import { BiCalendar } from 'react-icons/bi';
+import '../index.scss';
 
 const DatesInput = ({ activeFilter, dateFrom, dateTo, handleCalendarChange }) => {
 	// const isdateToNeed = activeFilter === 'week' || activeFilter === 'month';
@@ -37,13 +39,15 @@ const DatesInput = ({ activeFilter, dateFrom, dateTo, handleCalendarChange }) =>
 	};
 
 	return (
-		<div className='dates-output mt-2'>
-			<div className='dates-range d-flex justify-content-center'>
+		<div className='dates-input d-flex justify-content-center mt-3'>
+			<div className='d-flex align-items-center'>
+				<BiCalendar className='mr-1' size='26' />
 				<DatePicker
 					value={dateRange}
 					onChange={handleCalendarChange}
-					inputPlaceholder='Выберите дату'
+					inputPlaceholder='Выберите период'
 					formatInputText={formatInputValue}
+					inputClassName='form-control'
 					shouldHighlightWeekends
 					locale={dateRangeLocaleRu}
 				/>
