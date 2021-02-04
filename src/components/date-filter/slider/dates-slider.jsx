@@ -1,4 +1,3 @@
-import '../index.scss';
 import React from 'react';
 import dayjs from 'dayjs';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
@@ -6,8 +5,6 @@ import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 dayjs.extend(weekOfYear);
 
 const DatesSlider = ({ activeFilter, dateFrom, dateTo, handleSliderDateChange, handleToggleDatesInput }) => {
-	// const isWeekOrMonth = activeFilter === 'week' || activeFilter === 'month';
-
 	function isDateToday() {
 		return dateFrom.isSame(dayjs(), 'd');
 	}

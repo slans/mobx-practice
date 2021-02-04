@@ -1,13 +1,10 @@
 import React from 'react';
-import 'react-modern-calendar-datepicker/lib/DatePicker.css';
-import DatePicker from 'react-modern-calendar-datepicker';
+import '@hassanmojab/react-modern-calendar-datepicker/lib/DatePicker.css';
+import DatePicker from '@hassanmojab/react-modern-calendar-datepicker';
 import dateRangeLocaleRu from '../../../utils/date-range-locale-ru';
 import { BiCalendar } from 'react-icons/bi';
-import '../index.scss';
 
 const DatesInput = ({ activeFilter, dateFrom, dateTo, handleCalendarChange }) => {
-	// const isdateToNeed = activeFilter === 'week' || activeFilter === 'month';
-
 	let dateRange = {
 		from: dateFrom
 			? {

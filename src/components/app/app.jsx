@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Col, Container } from 'reactstrap';
 import DateFilter from '../date-filter/date-filter';
-// import '../../assets/scss/icons/_boxicons.scss';
-// import Test from '../test/test';
+import './index.scss';
 
 class App extends Component {
 	render() {
@@ -10,7 +9,6 @@ class App extends Component {
 			<Container>
 				<Col sm='4'>
 					<DateFilter />
-					{/* <Test /> */}
 				</Col>
 			</Container>
 		);

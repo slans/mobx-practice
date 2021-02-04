@@ -2,7 +2,6 @@ import React from 'react';
 import { List } from 'reactstrap';
 import FilterItem from './filter-item/filter-item';
 import { nanoid } from 'nanoid';
-import '../index.scss';
 
 function Filters({ handleChooseFilter, activeFilter }) {
 	const filters = [
